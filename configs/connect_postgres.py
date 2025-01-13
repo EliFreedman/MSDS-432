@@ -1,7 +1,12 @@
 import psycopg2
-from psycopg2 import sql, OperationalError
+from psycopg2 import OperationalError
+from dotenv import load_dotenv
+import os
 
-def connect_to_postgres(dbname, user, password, host="localhost", port=5432):
+# Load environment variables from .env file
+load_dotenv()
+
+def connect_to_postgres():
     """
     Connect to a PostgreSQL database and return the connection object.
 
@@ -18,13 +23,13 @@ def connect_to_postgres(dbname, user, password, host="localhost", port=5432):
     try:
         # Establish the connection
         connection = psycopg2.connect(
-            dbname=dbname,
-            user=user,
-            password=password,
-            host=host,
-            port=port
+            dbname=os.getenv("DB_NAME"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            host=os.getenv("DB_HOST", "localhost"),
+            port=os.getenv("DB_PORT", 5432)
         )
-        print(f"Successfully connected to the database: {dbname}")
+        print(f"Successfully connected to the database: {os.getenv('DB_NAME')}")
         return connection
 
     except OperationalError as e:
