@@ -11,7 +11,7 @@ import (
 func FetchData(url string, ch chan<- map[string]interface{}) {
 	// The Taxi Trips dataset takes a long time to fetch, so this may need to be increased
 	client := &http.Client{
-		Timeout: 120 * time.Second, // Set a timeout for the HTTP request
+		Timeout: 300 * time.Second, // Set a timeout for the HTTP request
 	}
 
 	resp, err := client.Get(url)
