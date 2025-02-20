@@ -6,21 +6,10 @@ import (
 	"fetcher-service/internal/queue"
 	"fmt"
 	"log"
-	"os"
 	"sync"
 )
 
 func main() {
-	// Create a log file
-	logFile, err := os.OpenFile("fetcher-service.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
-	if err != nil {
-		log.Fatalf("Failed to open log file: %v", err)
-	}
-	defer logFile.Close()
-
-	// Set log output to the file
-	log.SetOutput(logFile)
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	// Define the limit for the APIs
 	limit := 10
@@ -74,6 +63,11 @@ func main() {
 	}()
 
 	// Wait for all goroutines to complete
-	wg.Wait()
-	close(dataChan)
+	go func() {
+		wg.Wait()
+		close(dataChan)
+	}()
+
+	// Prevent the main function from exiting immediately
+	select {}
 }
