@@ -25,6 +25,7 @@ func main() {
 		"public_health_statistics":  fmt.Sprintf("https://data.cityofchicago.org/resource/iqnk-2tcu.json?$limit=%d", limit),
 	}
 
+	// Create a channel to receive data from the goroutines
 	dataChan := make(chan map[string]interface{})
 	var wg sync.WaitGroup
 
@@ -54,8 +55,11 @@ func main() {
 				continue
 			}
 
+			queue_name := data["table_name"].(string)
+			log.Printf("Publishing data to queue: %s", queue_name)
+
 			// Publish data to RabbitMQ
-			err = queue.PublishToQueue("data_queue", message)
+			err = queue.PublishToQueue(queue_name, message)
 			if err != nil {
 				log.Printf("Failed to publish data to queue: %v", err)
 			}

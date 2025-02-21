@@ -28,12 +28,12 @@ func PublishToQueue(queueName string, message []byte) error {
 		log.Printf("Failed to connect to RabbitMQ (attempt %d/%d): %v", i+1, maxRetries, err)
 		time.Sleep(retryInterval)
 	}
-
 	if err != nil {
 		return fmt.Errorf("failed to connect to RabbitMQ after %d attempts: %w", maxRetries, err)
 	}
 	defer conn.Close()
 
+	// Create a new channel
 	ch, err := conn.Channel()
 	if err != nil {
 		log.Printf("Failed to open channel: %v", err)
@@ -41,6 +41,7 @@ func PublishToQueue(queueName string, message []byte) error {
 	}
 	defer ch.Close()
 
+	// Declare a queue
 	_, err = ch.QueueDeclare(
 		queueName, // name
 		true,      // durable
@@ -54,6 +55,7 @@ func PublishToQueue(queueName string, message []byte) error {
 		return fmt.Errorf("failed to declare queue: %w", err)
 	}
 
+	// Publish the message to the queue
 	err = ch.Publish(
 		"",        // exchange
 		queueName, // routing key
@@ -69,6 +71,6 @@ func PublishToQueue(queueName string, message []byte) error {
 		return fmt.Errorf("failed to publish message: %w", err)
 	}
 
-	log.Printf("Published message to %s queue", queueName)
+	log.Printf("Published message to %s", queueName)
 	return nil
 }
