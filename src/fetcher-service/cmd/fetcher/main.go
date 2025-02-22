@@ -55,7 +55,7 @@ func main() {
 				continue
 			}
 
-			queue_name := data["table_name"].(string)
+			queue_name := data["table_name"].(string) + "_raw"
 			log.Printf("Publishing data to queue: %s", queue_name)
 
 			// Publish data to RabbitMQ
