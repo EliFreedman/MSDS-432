@@ -168,6 +168,7 @@ func CleanData(data []byte, source string) (interface{}, error) {
 	var raw map[string]interface{}
 	err := json.Unmarshal(data, &raw)
 	if err != nil {
+		log.Printf("Failed to unmarshal message: %v", err)
 		return nil, fmt.Errorf("failed to parse JSON: %w", err)
 	}
 
@@ -176,18 +177,18 @@ func CleanData(data []byte, source string) (interface{}, error) {
 	switch source {
 	case "taxi_trips":
 		return cleanTaxiTrips(raw)
-	// case "covid_cases":
-	//     return cleanCovidCases(raw)
-	// case "covid_vulnerability_index":
-	//     return cleanCovidVI(raw)
-	// case "building_permits":
-	//     return cleanBuildingPermits(raw)
-	// case "census_data":
-	//     return cleanCensusData(raw)
-	// case "transportation_trips":
-	//     return cleanTransportationTrips(raw)
-	// case "public_health_statistics":
-	//     return cleanPHS(raw)
+	case "covid_cases":
+	    return cleanCovidCases(raw)
+	case "covid_vulnerability_index":
+	    return cleanCovidVI(raw)
+	case "building_permits":
+	    return cleanBuildingPermits(raw)
+	case "census_data":
+	    return cleanCensusData(raw)
+	case "transportation_trips":
+	    return cleanTransportationTrips(raw)
+	case "public_health_statistics":
+	    return cleanPHS(raw)
 	default:
 		return nil, fmt.Errorf("unknown data source: %s", source)
 	}
@@ -320,38 +321,44 @@ func cleanTaxiTrips(data map[string]interface{}) (TaxiTripsJsonRecords, error) {
 	return records, nil
 }
 
-// func cleanCovidCases(data map[string]interface{}) error {
-// 	log.Printf("Applying cleaning rules for Covid Cases: %+v", data)
-// 	// Implement cleaning rules
-// 	return nil
-// }
+func cleanCovidCases(data map[string]interface{}) (CovidCasesJsonRecords, error) {
+	log.Printf("Applying cleaning rules for Covid Cases: %+v", data)
+	var records CovidCasesJsonRecords
+	// TODO: Implement Covid Cases cleaning rules
+	return records, nil
+}
 
-// func cleanCovidVI(data map[string]interface{}) error {
-// 	log.Printf("Applying cleaning rules for Covid Vulnerability Index: %+v", data)
-// 	// Implement general cleaning rules
-// 	return nil
-// }
+func cleanCovidVI(data map[string]interface{}) (CovidVIJsonRecords, error) {
+	log.Printf("Applying cleaning rules for Covid Vulnerability Index: %+v", data)
+	var records CovidVIJsonRecords
+	// TODO: Implement Covid VI cleaning rules
+	return records, nil
+}
 
-// func cleanBuildingPermits(data map[string]interface{}) error {
-// 	log.Printf("Applying cleaning rules for Building Permits: %+v", data)
-// 	// Implement general cleaning rules
-// 	return nil
-// }
+func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecords, error) {
+	log.Printf("Applying cleaning rules for Building Permits: %+v", data)
+	var records BuildingPermitsJsonRecords
+	// TODO: Implement Building Permits cleaning rules
+	return records, nil
+}
 
-// func cleanCensusData(data map[string]interface{}) error {
-// 	log.Printf("Applying cleaning rules for Census Data: %+v", data)
-// 	// Implement general cleaning rules
-// 	return nil
-// }
+func cleanCensusData(data map[string]interface{}) (CensusDataJsonRecords, error) {
+	log.Printf("Applying cleaning rules for Census Data: %+v", data)
+	var records CensusDataJsonRecords
+	// TODO: Implement Census Data cleaning rules
+	return records, nil
+}
 
-// func cleanTransportationTrips(data map[string]interface{}) error {
-// 	log.Printf("Applying cleaning rules for Transportation Trips: %+v", data)
-// 	// Implement general cleaning rules
-// 	return nil
-// }
+func cleanTransportationTrips(data map[string]interface{}) (TransportationTripsJsonRecords, error) {
+	log.Printf("Applying cleaning rules for Transportation Trips: %+v", data)
+	var records TransportationTripsJsonRecords
+	// TODO: Implement Transportation Trips cleaning rules
+	return records, nil
+}
 
-// func cleanPHS(data map[string]interface{}) error {
-// 	log.Printf("Applying cleaning rules for Public Health Statistics: %+v", data)
-// 	// Implement general cleaning rules
-// 	return nil
-// }
+func cleanPHS(data map[string]interface{}) (PHSJsonRecords, error) {
+	log.Printf("Applying cleaning rules for Public Health Statistics: %+v", data)
+	var records PHSJsonRecords
+	// TODO: Implement PHS cleaning rules
+	return records, nil
+}

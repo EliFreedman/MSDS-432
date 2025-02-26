@@ -12,8 +12,7 @@ import (
 
 func main() {
 	// List of queues to consume from
-	// queues := []string{"taxi_trips_raw", "covid_cases_raw", "covid_vulnerability_index_raw", "building_permits_raw", "census_data_raw", "transportation_trips_raw", "public_health_statistics_raw"}
-	queues := []string{"taxi_trips_raw", "covid_cases_raw"}
+	queues := []string{"taxi_trips_raw", "covid_cases_raw", "covid_vulnerability_index_raw", "building_permits_raw", "census_data_raw", "transportation_trips_raw", "public_health_statistics_raw"}
 
 	for _, queueName := range queues {
 		go func(queueName string) {
