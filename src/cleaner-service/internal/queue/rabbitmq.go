@@ -1,8 +1,11 @@
 package queue
 
 import (
+	"cleaner-service/internal/clean"
+	"encoding/json"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/streadway/amqp"
@@ -66,6 +69,28 @@ func StartConsumer(queueName string, processFunc func([]byte, string) error) err
 		}
 	}
 
+	return nil
+}
+
+func ProcessMessage(body []byte, queueName string) error {
+	source := strings.TrimSuffix(queueName, "_raw")
+	cleanedData, err := clean.CleanData(body, source)
+	if err != nil {
+		return fmt.Errorf("failed to clean data: %w", err)
+	}
+
+	cleanedDataBytes, err := json.Marshal(cleanedData)
+	if err != nil {
+		return fmt.Errorf("failed to marshal cleaned data: %w", err)
+	}
+
+	bronzeQueueName := source + "_bronze"
+	err = PublishToQueue(bronzeQueueName, cleanedDataBytes)
+	if err != nil {
+		return fmt.Errorf("failed to publish cleaned data: %w", err)
+	}
+
+	log.Printf("Published cleaned data to queue: %s", bronzeQueueName)
 	return nil
 }
 
