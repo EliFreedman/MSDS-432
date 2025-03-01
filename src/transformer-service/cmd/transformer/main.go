@@ -12,9 +12,13 @@ func main() {
 
 	for _, queueName := range queues {
 		go func(queueName string) {
-			err := queue.StartConsumer(queueName, queue.ProcessMessage)
-			if err != nil {
-				log.Fatalf("Failed to start consumer for queue %s: %v", queueName, err)
+			for {
+				err := queue.StartConsumer(queueName, queue.ProcessMessage)
+				if err != nil {
+					log.Printf("Waiting for queue %s to appear: %v", queueName, err)
+				} else {
+					break
+				}
 			}
 		}(queueName)
 	}
