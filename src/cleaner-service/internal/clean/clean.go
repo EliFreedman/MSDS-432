@@ -549,9 +549,7 @@ func cleanCovidVI(data map[string]interface{}) (CovidVIJsonRecords, error) {
 		}
 		communityAreaName, err := parseString(recMap["community_area_name"])
 		if err != nil {
-			log.Printf("Missing or invalid community_area_name: %v", recMap["community_area_name"])
-			droppedRecords++
-			continue
+			communityAreaName = "" // Not available for all records
 		}
 		ccviCategory, err := parseString(recMap["ccvi_category"])
 		if err != nil {
@@ -635,9 +633,7 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 		}
 		workType, err := parseString(recMap["work_type"])
 		if err != nil {
-			log.Printf("Missing or invalid work_type: %v", recMap["work_type"])
-			droppedRecords++
-			continue
+			workType = "" // Not available for all records
 		}
 		totalFee, err := parseFloat(recMap["total_fee"])
 		if err != nil {
