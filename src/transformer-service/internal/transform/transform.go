@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"time"
 
@@ -56,32 +57,65 @@ type TransportationTripsJsonRecords []struct {
 	Dropoff_zipcode            string    `json:"dropoff_zipcode"`
 }
 
+// parseTime takes a string and returns time.Time
+func parseTime(value string) (time.Time, error) {
+	formats := []string{
+		time.RFC3339,
+		"2006-01-02T15:04:05.000",
+		"2006-01-02T15:04:05",
+		"2006-01-02T15:04:05.000Z07:00",
+		"2006-01-02T15:04:05Z07:00",
+	}
+
+	var t time.Time
+	var err error
+	for _, format := range formats {
+		t, err = time.Parse(format, value)
+		if err == nil {
+			return t, nil
+		}
+	}
+
+	// Return zero value if parsing fails
+	return time.Time{}, fmt.Errorf("invalid time format: %v", value)
+}
+
 func TransformData(message []byte, source string) (interface{}, error) {
-	// TODO: Receiving an error: Failed to unmarshal message: json: cannot unmarshal array into Go value of type map[string]interface {}
+
+	geocoder.ApiKey = os.Getenv("GEOCODER_API_KEY")
+	if geocoder.ApiKey == "" {
+		log.Fatal("GEOCODER_API_KEY is not set")
+	}
 
 	// Unmarshal the message
-	var data map[string]interface{}
+	var data []map[string]interface{}
 	err := json.Unmarshal(message, &data)
 	if err != nil {
 		log.Printf("Failed to unmarshal message: %v", err)
 		return nil, fmt.Errorf("failed to unmarshal message: %w", err)
 	}
 
+	// Convert []map[string]interface{} → []interface{}
+	dataAsInterface := make([]interface{}, len(data))
+	for i, v := range data {
+		dataAsInterface[i] = v
+	}
+
 	switch source {
 	case "taxi_trips":
-		return transformTaxiTrips(data)
-	// case "covid_cases":
-	// 	return transformCovidCases(data)
-	// case "covid_vulnerability_index":
-	// 	return transformCovidVI(data)
+		return transformTaxiTrips(dataAsInterface)
+	case "covid_cases":
+		return transformCovidCases(data)
+	case "covid_vulnerability_index":
+		return transformCovidVI(data)
 	case "building_permits":
-		return transformBuildingPermits(data)
-	// case "census_data":
-	// 	return transformCensusData(data)
+		return transformBuildingPermits(dataAsInterface)
+	case "census_data":
+		return transformCensusData(data)
 	case "transportation_trips":
-		return transformTransportationTrips(data)
-	// case "public_health_statistics":
-	// 	return transformPHS(data)
+		return transformTransportationTrips(dataAsInterface)
+	case "public_health_statistics":
+		return transformPHS(data)
 	default:
 		return nil, fmt.Errorf("unknown data source: %s", source)
 	}
@@ -128,6 +162,16 @@ func transformTaxiTrips(data interface{}) (TaxiTripsJsonRecords, error) {
 		pickup_zipcode := pickupAddress[0].PostalCode
 		dropoff_zipcode := dropoffAddress[0].PostalCode
 
+		// Parse the timestamps from strings to time.Time
+		tripStartTimestamp, err := parseTime(record["trip_start_timestamp"].(string))
+		if err != nil {
+			return nil, fmt.Errorf("error parsing trip_start_timestamp: %v", err)
+		}
+		tripEndTimestamp, err := parseTime(record["trip_end_timestamp"].(string))
+		if err != nil {
+			return nil, fmt.Errorf("error parsing trip_end_timestamp: %v", err)
+		}
+
 		// Create a cleaned trip record
 		trip := struct {
 			Trip_id                    string    `json:"trip_id"`
@@ -143,8 +187,8 @@ func transformTaxiTrips(data interface{}) (TaxiTripsJsonRecords, error) {
 			Dropoff_zipcode            string    `json:"dropoff_zipcode"`
 		}{
 			Trip_id:                    record["trip_id"].(string),
-			Trip_start_timestamp:       record["trip_start_timestamp"].(time.Time),
-			Trip_end_timestamp:         record["trip_end_timestamp"].(time.Time),
+			Trip_start_timestamp:       tripStartTimestamp,
+			Trip_end_timestamp:         tripEndTimestamp,
 			Pickup_centroid_latitude:   record["pickup_centroid_latitude"].(string),
 			Pickup_centroid_longitude:  record["pickup_centroid_longitude"].(string),
 			Pickup_community_area:      record["pickup_community_area"].(string),
@@ -161,15 +205,15 @@ func transformTaxiTrips(data interface{}) (TaxiTripsJsonRecords, error) {
 	return records, nil
 }
 
-// func transformCovidCases(data interface{}) (interface{}, error) {
-// 	// No transformation needed for the COVID cases data
-// 	return data, nil
-// }
+func transformCovidCases(data interface{}) (interface{}, error) {
+	// No transformation needed for the COVID cases data
+	return data, nil
+}
 
-// func transformCovidVI(data interface{}) (interface{}, error) {
-// 	// No transformation needed for the COVID vulnerability index data
-// 	return data, nil
-// }
+func transformCovidVI(data interface{}) (interface{}, error) {
+	// No transformation needed for the COVID vulnerability index data
+	return data, nil
+}
 
 func transformBuildingPermits(data interface{}) (BuildingPermitsJsonRecords, error) {
 	var records BuildingPermitsJsonRecords
@@ -197,6 +241,15 @@ func transformBuildingPermits(data interface{}) (BuildingPermitsJsonRecords, err
 
 		zipcode := address[0].PostalCode
 
+		applicationStartDate, err := parseTime(record["application_start_date"].(string))
+		if err != nil {
+			return nil, fmt.Errorf("error parsing application_start_date: %v", err)
+		}
+		issueDate, err := parseTime(record["issue_date"].(string))
+		if err != nil {
+			return nil, fmt.Errorf("error parsing issue_date: %v", err)
+		}
+
 		// Create a cleaned building permit record
 		permit := struct {
 			Id                     string    `json:"id"`
@@ -217,8 +270,8 @@ func transformBuildingPermits(data interface{}) (BuildingPermitsJsonRecords, err
 			Permit_status:          record["permit_status"].(string),
 			Permit_type:            record["permit_type"].(string),
 			Review_type:            record["review_type"].(string),
-			Application_start_date: record["application_start_date"].(time.Time),
-			Issue_date:             record["issue_date"].(time.Time),
+			Application_start_date: applicationStartDate,
+			Issue_date:             issueDate,
 			Work_type:              record["work_type"].(string),
 			Total_fee:              record["total_fee"].(float64),
 			Reported_cost:          record["reported_cost"].(string),
@@ -234,10 +287,10 @@ func transformBuildingPermits(data interface{}) (BuildingPermitsJsonRecords, err
 	return records, nil
 }
 
-// func transformCensusData(data interface{}) (interface{}, error) {
-// 	// No transformation needed for the census data
-// 	return data, nil
-// }
+func transformCensusData(data interface{}) (interface{}, error) {
+	// No transformation needed for the census data
+	return data, nil
+}
 
 func transformTransportationTrips(data interface{}) (TransportationTripsJsonRecords, error) {
 	var records TransportationTripsJsonRecords
@@ -280,6 +333,16 @@ func transformTransportationTrips(data interface{}) (TransportationTripsJsonReco
 		pickup_zipcode := pickupAddress[0].PostalCode
 		dropoff_zipcode := dropoffAddress[0].PostalCode
 
+		// Parse the timestamps from strings to time.Time
+		tripStartTimestamp, err := parseTime(record["trip_start_timestamp"].(string))
+		if err != nil {
+			return nil, fmt.Errorf("error parsing trip_start_timestamp: %v", err)
+		}
+		tripEndTimestamp, err := parseTime(record["trip_end_timestamp"].(string))
+		if err != nil {
+			return nil, fmt.Errorf("error parsing trip_end_timestamp: %v", err)
+		}
+
 		// Create a cleaned transportation trip record
 		trip := struct {
 			Trip_id                    string    `json:"trip_id"`
@@ -297,8 +360,8 @@ func transformTransportationTrips(data interface{}) (TransportationTripsJsonReco
 			Dropoff_zipcode            string    `json:"dropoff_zipcode"`
 		}{
 			Trip_id:                    record["trip_id"].(string),
-			Trip_start_timestamp:       record["trip_start_timestamp"].(time.Time),
-			Trip_end_timestamp:         record["trip_end_timestamp"].(time.Time),
+			Trip_start_timestamp:       tripStartTimestamp,
+			Trip_end_timestamp:         tripEndTimestamp,
 			Pickup_census_tract:        record["pickup_census_tract"].(string),
 			Dropoff_census_tract:       record["dropoff_census_tract"].(string),
 			Pickup_community_area:      record["pickup_community_area"].(string),
@@ -317,7 +380,7 @@ func transformTransportationTrips(data interface{}) (TransportationTripsJsonReco
 	return records, nil
 }
 
-// func transformPHS(data interface{}) (interface{}, error) {
-// 	// No transformation needed for the public health statistics data
-// 	return data, nil
-// }
+func transformPHS(data interface{}) (interface{}, error) {
+	// No transformation needed for the public health statistics data
+	return data, nil
+}
