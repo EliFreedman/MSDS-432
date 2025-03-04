@@ -102,10 +102,10 @@ func AddRecords(tableName string, records []map[string]interface{}) error {
 			value := record[column]
 			// fmt.Printf("Key: %s, Value: %v\n", column, value)
 
-			// Check for empty strings or -1 and replace with null
-			if value == "" || value == "-1" {
-				value = nil
-			}
+			// // Check for empty strings or -1 and replace with null
+			// if value == "" || value == "-1" {
+			// 	value = nil
+			// }
 
 			// Append the value depending on the type
 			switch v := value.(type) {
