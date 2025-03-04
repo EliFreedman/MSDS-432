@@ -25,102 +25,53 @@ type CovidCasesJsonRecords []struct {
 	Week_number                        string    `json:"week_number"`
 	Week_start                         time.Time `json:"week_start"`
 	Week_end                           time.Time `json:"week_end"`
-	Cases_weekly                       int32     `json:"cases_weekly"`
-	Cases_cumulative                   int32     `json:"cases_cumulative"`
+	Cases_weekly                       int64     `json:"cases_weekly"`
+	Cases_cumulative                   int64     `json:"cases_cumulative"`
 	Case_rate_weekly                   float64   `json:"case_rate_weekly"`
 	Case_rate_cumulative               float64   `json:"case_rate_cumulative"`
-	Tests_weekly                       int32     `json:"tests_weekly"`
-	Tests_cumulative                   int32     `json:"tests_cumulative"`
+	Tests_weekly                       int64     `json:"tests_weekly"`
+	Tests_cumulative                   int64     `json:"tests_cumulative"`
 	Test_rate_weekly                   float64   `json:"test_rate_weekly"`
 	Test_rate_cumulative               float64   `json:"test_rate_cumulative"`
 	Percent_tested_positive_weekly     float64   `json:"percent_tested_positive_weekly"`
 	Percent_tested_positive_cumulative float64   `json:"percent_tested_positive_cumulative"`
-	Deaths_weekly                      int32     `json:"deaths_weekly"`
-	Deaths_cumulative                  int32     `json:"deaths_cumulative"`
+	Deaths_weekly                      int64     `json:"deaths_weekly"`
+	Deaths_cumulative                  int64     `json:"deaths_cumulative"`
 	Death_rate_weekly                  float64   `json:"death_rate_weekly"`
 	Death_rate_cumulative              float64   `json:"death_rate_cumulative"`
-	Population                         int32     `json:"population"`
+	Population                         int64     `json:"population"`
 	Row_id                             string    `json:"row_id"`
 	Latitude                           float64   `json:"latitude"`
 	Longitude                          float64   `json:"longitude"`
 }
 
 type CovidVIJsonRecords []struct {
-	Geography_type                        string  `json:"geography_type"`
-	Community_area_or_zip                 string  `json:"community_area_or_zip"`
-	Community_area_name                   string  `json:"community_area_name"`
-	CCVI_score                            float64 `json:"ccvi_score"`
-	CCVI_category                         string  `json:"ccvi_category"`
-	Rank_socioeconomic_status             int     `json:"rank_socioeconomic_status"`
-	Rank_household_composition            int     `json:"rank_household_composition"`
-	Rank_adults_no_pcp                    int     `json:"rank_adults_no_pcp"`
-	Rank_cumulative_mobility_ratio        int     `json:"rank_cumulative_mobility_ratio"`
-	Rank_frontline_essential_workers      int     `json:"rank_frontline_essential_workers"`
-	Rank_age_65_plus                      int     `json:"rank_age_65_plus"`
-	Rank_comorbid_conditions              int     `json:"rank_comorbid_conditions"`
-	Rank_covid_19_incidence_rate          int     `json:"rank_covid_19_incidence_rate"`
-	Rank_covid_19_hospital_admission_rate int     `json:"rank_covid_19_hospital_admission_rate"`
-	Rank_covid_19_crude_mortality_rate    int     `json:"rank_covid_19_crude_mortality_rate"`
-	Latitude                              float64 `json:"latitude"`
-	Longitude                             float64 `json:"longitude"`
+	Community_area_or_zip string `json:"community_area_or_zip"`
+	Community_area_name   string `json:"community_area_name"`
+	CCVI_category         string `json:"ccvi_category"`
 }
 
 type BuildingPermitsJsonRecords []struct {
 	Id                     string    `json:"id"`
-	Permit_code            string    `json:"permit_"`
 	Permit_status          string    `json:"permit_status"`
-	Permit_milestone       string    `json:"permit_milestone"`
 	Permit_type            string    `json:"permit_type"`
 	Review_type            string    `json:"review_type"`
 	Application_start_date time.Time `json:"application_start_date"`
 	Issue_date             time.Time `json:"issue_date"`
-	Processing_time        string    `json:"processing_time"`
-	Street_number          string    `json:"street_number"`
-	Street_direction       string    `json:"street_direction"`
-	Street_name            string    `json:"street_name"`
 	Work_type              string    `json:"work_type"`
-	Work_description       string    `json:"work_description"`
-	Building_fee_paid      float64   `json:"building_fee_paid"`
-	Zoning_fee_paid        float64   `json:"zoning_fee_paid"`
-	Other_fee_paid         float64   `json:"other_fee_paid"`
-	Subtotal_paid          float64   `json:"subtotal_paid"`
-	Building_fee_unpaid    float64   `json:"building_fee_unpaid"`
-	Zoning_fee_unpaid      float64   `json:"zoning_fee_unpaid"`
-	Other_fee_unpaid       float64   `json:"other_fee_unpaid"`
-	Subtotal_unpaid        float64   `json:"subtotal_unpaid"`
-	Building_fee_waived    float64   `json:"building_fee_waived"`
-	Building_fee_subtotal  float64   `json:"building_fee_subtotal"`
-	Zoning_fee_subtotal    float64   `json:"zoning_fee_subtotal"`
-	Other_fee_subtotal     float64   `json:"other_fee_subtotal"`
-	Zoning_fee_waived      float64   `json:"zoning_fee_waived"`
-	Other_fee_waived       float64   `json:"other_fee_waived"`
-	Subtotal_waived        float64   `json:"subtotal_waived"`
 	Total_fee              float64   `json:"total_fee"`
-	Contact_1_type         string    `json:"contact_1_type"`
-	Contact_1_name         string    `json:"contact_1_name"`
-	Contact_1_city         string    `json:"contact_1_city"`
-	Contact_1_state        string    `json:"contact_1_state"`
-	Contact_1_zipcode      string    `json:"contact_1_zipcode"`
 	Reported_cost          string    `json:"reported_cost"`
 	Community_area         string    `json:"community_area"`
-	Census_tract           string    `json:"census_tract"`
-	Ward                   string    `json:"ward"`
-	Xcoordinate            string    `json:"xcoordinate"`
-	Ycoordinate            string    `json:"ycoordinate"`
 	Latitude               string    `json:"latitude"`
 	Longitude              string    `json:"longitude"`
 }
 
 type CensusDataJsonRecords []struct {
-	Community_area_number                       string  `json:"community_area_number"`
-	Community_area_name                         string  `json:"community_area_name"`
-	Percent_of_housing_crowded                  float64 `json:"percent_of_housing_crowded"`
-	Percent_households_below_poverty            float64 `json:"percent_households_below_poverty"`
-	Percent_aged_16_unemployed                  float64 `json:"percent_aged_16_unemployed"`
-	Percent_aged_25_without_high_school_diploma float64 `json:"percent_aged_25_without_high_school_diploma"`
-	Percent_aged_under_18_or_over_64            float64 `json:"percent_aged_under_18_or_over_64"`
-	Per_capita_income                           int     `json:"per_capita_income"`
-	Hardship_index                              int     `json:"hardship_index"`
+	Community_area_number            string  `json:"community_area_number"`
+	Community_area_name              string  `json:"community_area_name"`
+	Percent_households_below_poverty float64 `json:"percent_households_below_poverty"`
+	Percent_aged_16_unemployed       float64 `json:"percent_aged_16_unemployed"`
+	Per_capita_income                int64   `json:"per_capita_income"`
 }
 
 type TransportationTripsJsonRecords []struct {
@@ -138,35 +89,11 @@ type TransportationTripsJsonRecords []struct {
 }
 
 type PHSJsonRecords []struct {
-	Community_area                             string  `json:"community_area"`
-	Community_area_name                        string  `json:"community_area_name"`
-	Birth_rate                                 float64 `json:"birth_rate"`
-	General_fertility_rate                     float64 `json:"general_fertility_rate"`
-	Low_birth_weight                           float64 `json:"low_birth_weight"`
-	Prenatal_care_beginning_in_first_trimester float64 `json:"prenatal_care_beginning_in_first_trimester"`
-	Preterm_births                             float64 `json:"preterm_births"`
-	Teen_birth_rate                            float64 `json:"teen_birth_rate"`
-	Assault_homicide                           float64 `json:"assault_homicide"`
-	Breast_cancer_in_females                   float64 `json:"breast_cancer_in_females"`
-	Cancer_all_sites                           float64 `json:"cancer_all_sites"`
-	Colorectal_cancer                          float64 `json:"colorectal_cancer"`
-	Diabetes_related                           float64 `json:"diabetes_related"`
-	Firearm_related                            float64 `json:"firearm_related"`
-	Infant_mortality_rate                      float64 `json:"infant_mortality_rate"`
-	Lung_cancer                                float64 `json:"lung_cancer"`
-	Prostate_cancer_in_males                   float64 `json:"prostate_cancer_in_males"`
-	Stroke_cerebrovascular_disease             float64 `json:"stroke_cerebrovascular_disease"`
-	Childhood_blood_lead_level_screening       float64 `json:"childhood_blood_lead_level_screening"`
-	Childhood_lead_poisoning                   float64 `json:"childhood_lead_poisoning"`
-	Gonorrhea_in_females                       float64 `json:"gonorrhea_in_females"`
-	Gonorrhea_in_males                         float64 `json:"gonorrhea_in_males"`
-	Tuberculosis                               float64 `json:"tuberculosis"`
-	Below_poverty_level                        float64 `json:"below_poverty_level"`
-	Crowded_housing                            float64 `json:"crowded_housing"`
-	Dependency                                 float64 `json:"dependency"`
-	No_high_school_diploma                     float64 `json:"no_high_school_diploma"`
-	Per_capita_income                          float64 `json:"per_capita_income"`
-	Unemployment                               float64 `json:"unemployment"`
+	Community_area      string  `json:"community_area"`
+	Community_area_name string  `json:"community_area_name"`
+	Below_poverty_level float64 `json:"below_poverty_level"`
+	Per_capita_income   float64 `json:"per_capita_income"`
+	Unemployment        float64 `json:"unemployment"`
 }
 
 // CleanData processes and cleans the data based on its source
@@ -200,7 +127,7 @@ func CleanData(data []byte, source string) (interface{}, error) {
 	}
 }
 
-// parseTime parses a string into a time.Time object using multiple formats
+// parseTime takes a string and returns time.Time
 func parseTime(value string) (time.Time, error) {
 	formats := []string{
 		time.RFC3339,
@@ -218,30 +145,61 @@ func parseTime(value string) (time.Time, error) {
 			return t, nil
 		}
 	}
-	return t, err
+
+	// Return zero value if parsing fails
+	return time.Time{}, fmt.Errorf("invalid time format: %v", value)
 }
 
-// parseInt is a helper function to parse an int from an interface{}
-func parseInt(value interface{}) (int, error) {
+// parseInt takes an interface and returns int64
+func parseInt(value interface{}) (int64, error) {
 	switch v := value.(type) {
 	case string:
-		return strconv.Atoi(v)
+		if v == "" {
+			return -1, nil // Return -1 for missing value
+		}
+		i, err := strconv.Atoi(v)
+		if err != nil {
+			return 0, fmt.Errorf("invalid int value: %v", v)
+		}
+		return int64(i), nil
 	case int:
-		return v, nil
+		return int64(v), nil
+	case float64: // Handle JSON decoding where numbers are float64
+		return int64(v), nil
 	default:
 		return 0, fmt.Errorf("invalid type for int conversion: %T", v)
 	}
 }
 
-// parseFloat is a helper function to parse a float64 from an interface{}
+// parseFloat takes an interface and returns float64
 func parseFloat(value interface{}) (float64, error) {
 	switch v := value.(type) {
 	case string:
-		return strconv.ParseFloat(v, 64)
+		if v == "" {
+			return -1, nil // Return -1 for missing value
+		}
+		f, err := strconv.ParseFloat(v, 64)
+		if err != nil {
+			return 0, fmt.Errorf("invalid float value: %v", v)
+		}
+		return f, nil
 	case float64:
 		return v, nil
 	default:
 		return 0, fmt.Errorf("invalid type for float conversion: %T", v)
+	}
+}
+
+// parseString takes an interface and returns string
+func parseString(value interface{}) (string, error) {
+	switch v := value.(type) {
+	case string:
+		if v == "" {
+			return "", nil // Return empty string for missing value
+		}
+		return v, nil
+	default:
+		return "", fmt.Errorf("invalid type for string conversion: %T", v)
 	}
 }
 
@@ -255,8 +213,8 @@ func cleanTaxiTrips(data map[string]interface{}) (TaxiTripsJsonRecords, error) {
 		recMap := record.(map[string]interface{})
 
 		// Clean each field
-		tripID, ok := recMap["trip_id"].(string)
-		if !ok {
+		tripID, err := parseString(recMap["trip_id"])
+		if err != nil {
 			log.Printf("Missing or invalid trip_id: %v", recMap["trip_id"])
 			droppedRecords++
 			continue
@@ -285,38 +243,38 @@ func cleanTaxiTrips(data map[string]interface{}) (TaxiTripsJsonRecords, error) {
 			droppedRecords++
 			continue
 		}
-		pickupCentroidLatitude, ok := recMap["pickup_centroid_latitude"].(string)
-		if !ok {
+		pickupCentroidLatitude, err := parseString(recMap["pickup_centroid_latitude"])
+		if err != nil {
 			log.Printf("Missing or invalid pickup_centroid_latitude: %v", recMap["pickup_centroid_latitude"])
 			droppedRecords++
 			continue
 		}
-		pickupCentroidLongitude, ok := recMap["pickup_centroid_longitude"].(string)
-		if !ok {
+		pickupCentroidLongitude, err := parseString(recMap["pickup_centroid_longitude"])
+		if err != nil {
 			log.Printf("Missing or invalid pickup_centroid_longitude: %v", recMap["pickup_centroid_longitude"])
 			droppedRecords++
 			continue
 		}
-		pickupCommunityArea, ok := recMap["pickup_community_area"].(string)
-		if !ok {
+		pickupCommunityArea, err := parseString(recMap["pickup_community_area"])
+		if err != nil {
 			log.Printf("Missing or invalid pickup_community_area: %v", recMap["pickup_community_area"])
 			droppedRecords++
 			continue
 		}
-		dropoffCentroidLatitude, ok := recMap["dropoff_centroid_latitude"].(string)
-		if !ok {
+		dropoffCentroidLatitude, err := parseString(recMap["dropoff_centroid_latitude"])
+		if err != nil {
 			log.Printf("Missing or invalid dropoff_centroid_latitude: %v", recMap["dropoff_centroid_latitude"])
 			droppedRecords++
 			continue
 		}
-		dropoffCentroidLongitude, ok := recMap["dropoff_centroid_longitude"].(string)
-		if !ok {
+		dropoffCentroidLongitude, err := parseString(recMap["dropoff_centroid_longitude"])
+		if err != nil {
 			log.Printf("Missing or invalid dropoff_centroid_longitude: %v", recMap["dropoff_centroid_longitude"])
 			droppedRecords++
 			continue
 		}
-		dropoffCommunityArea, ok := recMap["dropoff_community_area"].(string)
-		if !ok {
+		dropoffCommunityArea, err := parseString(recMap["dropoff_community_area"])
+		if err != nil {
 			log.Printf("Missing or invalid dropoff_community_area: %v", recMap["dropoff_community_area"])
 			droppedRecords++
 			continue
@@ -361,14 +319,14 @@ func cleanCovidCases(data map[string]interface{}) (CovidCasesJsonRecords, error)
 		recMap := record.(map[string]interface{})
 
 		// Clean each field
-		zipCode, ok := recMap["zip_code"].(string)
-		if !ok {
+		zipCode, err := parseString(recMap["zip_code"])
+		if err != nil {
 			log.Printf("Missing or invalid zip_code: %v", recMap["zip_code"])
 			droppedRecords++
 			continue
 		}
-		weekNumber, ok := recMap["week_number"].(string)
-		if !ok {
+		weekNumber, err := parseString(recMap["week_number"])
+		if err != nil {
 			log.Printf("Missing or invalid week_number: %v", recMap["week_number"])
 			droppedRecords++
 			continue
@@ -487,8 +445,8 @@ func cleanCovidCases(data map[string]interface{}) (CovidCasesJsonRecords, error)
 			droppedRecords++
 			continue
 		}
-		rowID, ok := recMap["row_id"].(string)
-		if !ok {
+		rowID, err := parseString(recMap["row_id"])
+		if err != nil {
 			log.Printf("Missing or invalid row_id: %v", recMap["row_id"])
 			droppedRecords++
 			continue
@@ -505,14 +463,14 @@ func cleanCovidCases(data map[string]interface{}) (CovidCasesJsonRecords, error)
 			droppedRecords++
 			continue
 		}
-		latitude, ok := coordinates[1].(float64)
-		if !ok {
+		latitude, err := parseFloat(coordinates[1])
+		if err != nil {
 			log.Printf("Invalid latitude in coordinates: %v", coordinates[1])
 			droppedRecords++
 			continue
 		}
-		longitude, ok := coordinates[0].(float64)
-		if !ok {
+		longitude, err := parseFloat(coordinates[0])
+		if err != nil {
 			log.Printf("Invalid longitude in coordinates: %v", coordinates[0])
 			droppedRecords++
 			continue
@@ -524,21 +482,21 @@ func cleanCovidCases(data map[string]interface{}) (CovidCasesJsonRecords, error)
 			Week_number                        string    `json:"week_number"`
 			Week_start                         time.Time `json:"week_start"`
 			Week_end                           time.Time `json:"week_end"`
-			Cases_weekly                       int32     `json:"cases_weekly"`
-			Cases_cumulative                   int32     `json:"cases_cumulative"`
+			Cases_weekly                       int64     `json:"cases_weekly"`
+			Cases_cumulative                   int64     `json:"cases_cumulative"`
 			Case_rate_weekly                   float64   `json:"case_rate_weekly"`
 			Case_rate_cumulative               float64   `json:"case_rate_cumulative"`
-			Tests_weekly                       int32     `json:"tests_weekly"`
-			Tests_cumulative                   int32     `json:"tests_cumulative"`
+			Tests_weekly                       int64     `json:"tests_weekly"`
+			Tests_cumulative                   int64     `json:"tests_cumulative"`
 			Test_rate_weekly                   float64   `json:"test_rate_weekly"`
 			Test_rate_cumulative               float64   `json:"test_rate_cumulative"`
 			Percent_tested_positive_weekly     float64   `json:"percent_tested_positive_weekly"`
 			Percent_tested_positive_cumulative float64   `json:"percent_tested_positive_cumulative"`
-			Deaths_weekly                      int32     `json:"deaths_weekly"`
-			Deaths_cumulative                  int32     `json:"deaths_cumulative"`
+			Deaths_weekly                      int64     `json:"deaths_weekly"`
+			Deaths_cumulative                  int64     `json:"deaths_cumulative"`
 			Death_rate_weekly                  float64   `json:"death_rate_weekly"`
 			Death_rate_cumulative              float64   `json:"death_rate_cumulative"`
-			Population                         int32     `json:"population"`
+			Population                         int64     `json:"population"`
 			Row_id                             string    `json:"row_id"`
 			Latitude                           float64   `json:"latitude"`
 			Longitude                          float64   `json:"longitude"`
@@ -547,21 +505,21 @@ func cleanCovidCases(data map[string]interface{}) (CovidCasesJsonRecords, error)
 			Week_number:                        weekNumber,
 			Week_start:                         weekStart,
 			Week_end:                           weekEnd,
-			Cases_weekly:                       int32(casesWeekly),
-			Cases_cumulative:                   int32(casesCumulative),
+			Cases_weekly:                       casesWeekly,
+			Cases_cumulative:                   casesCumulative,
 			Case_rate_weekly:                   caseRateWeekly,
 			Case_rate_cumulative:               caseRateCumulative,
-			Tests_weekly:                       int32(testsWeekly),
-			Tests_cumulative:                   int32(testsCumulative),
+			Tests_weekly:                       testsWeekly,
+			Tests_cumulative:                   testsCumulative,
 			Test_rate_weekly:                   testRateWeekly,
 			Test_rate_cumulative:               testRateCumulative,
 			Percent_tested_positive_weekly:     percentTestedPositiveWeekly,
 			Percent_tested_positive_cumulative: percentTestedPositiveCumulative,
-			Deaths_weekly:                      int32(deathsWeekly),
-			Deaths_cumulative:                  int32(deathsCumulative),
+			Deaths_weekly:                      deathsWeekly,
+			Deaths_cumulative:                  deathsCumulative,
 			Death_rate_weekly:                  deathRateWeekly,
 			Death_rate_cumulative:              deathRateCumulative,
-			Population:                         int32(population),
+			Population:                         population,
 			Row_id:                             rowID,
 			Latitude:                           latitude,
 			Longitude:                          longitude,
@@ -583,139 +541,34 @@ func cleanCovidVI(data map[string]interface{}) (CovidVIJsonRecords, error) {
 		recMap := record.(map[string]interface{})
 
 		// Clean each field
-		geographyType, ok := recMap["geography_type"].(string)
-		if !ok {
-			log.Printf("Missing or invalid geography_type: %v", recMap["geography_type"])
-			droppedRecords++
-			continue
-		}
-		communityAreaOrZip, ok := recMap["community_area_or_zip"].(string)
-		if !ok {
+		communityAreaOrZip, err := parseString(recMap["community_area_or_zip"])
+		if err != nil {
 			log.Printf("Missing or invalid community_area_or_zip: %v", recMap["community_area_or_zip"])
 			droppedRecords++
 			continue
 		}
-		communityAreaName, ok := recMap["community_area_name"].(string)
-		if !ok {
-			// Can extrapolate from community_area_or_zip
-			communityAreaName = ""
-		}
-		ccviScore, err := parseFloat(recMap["ccvi_score"])
+		communityAreaName, err := parseString(recMap["community_area_name"])
 		if err != nil {
-			log.Printf("Failed to convert ccvi_score: %v", err)
+			log.Printf("Missing or invalid community_area_name: %v", recMap["community_area_name"])
 			droppedRecords++
 			continue
 		}
-		ccviCategory, ok := recMap["ccvi_category"].(string)
-		if !ok {
+		ccviCategory, err := parseString(recMap["ccvi_category"])
+		if err != nil {
 			log.Printf("Missing or invalid ccvi_category: %v", recMap["ccvi_category"])
-			droppedRecords++
-			continue
-		}
-		rankSocioeconomicStatus, err := parseInt(recMap["rank_socioeconomic_status"])
-		if err != nil {
-			rankSocioeconomicStatus = -1
-		}
-		rankHouseholdComposition, err := parseInt(recMap["rank_household_composition"])
-		if err != nil {
-			rankHouseholdComposition = -1
-		}
-		rankAdultsNoPcp, err := parseInt(recMap["rank_adults_no_pcp"])
-		if err != nil {
-			rankAdultsNoPcp = -1
-		}
-		rankCumulativeMobilityRatio, err := parseInt(recMap["rank_cumulative_mobility_ratio"])
-		if err != nil {
-			rankCumulativeMobilityRatio = -1
-		}
-		rankFrontlineEssentialWorkers, err := parseInt(recMap["rank_frontline_essential_workers"])
-		if err != nil {
-			rankFrontlineEssentialWorkers = -1
-		}
-		rankAge65Plus, err := parseInt(recMap["rank_age_65_plus"])
-		if err != nil {
-			rankAge65Plus = -1
-		}
-		rankComorbidConditions, err := parseInt(recMap["rank_comorbid_conditions"])
-		if err != nil {
-			rankComorbidConditions = -1
-		}
-		rankCovid19IncidenceRate, err := parseInt(recMap["rank_covid_19_incidence_rate"])
-		if err != nil {
-			log.Printf("Failed to convert rank_covid_19_incidence_rate: %v", err)
-			droppedRecords++
-			continue
-		}
-		rankCovid19HospitalAdmissionRate, err := parseInt(recMap["rank_covid_19_hospital_admission_rate"])
-		if err != nil {
-			rankCovid19HospitalAdmissionRate = -1
-		}
-		rankCovid19CrudeMortalityRate, err := parseInt(recMap["rank_covid_19_crude_mortality_rate"])
-		if err != nil {
-			rankCovid19CrudeMortalityRate = -1
-		}
-		location, ok := recMap["location"].(map[string]interface{})
-		if !ok {
-			log.Printf("Missing or invalid location: %v", recMap["location"])
-			droppedRecords++
-			continue
-		}
-		coordinates, ok := location["coordinates"].([]interface{})
-		if !ok || len(coordinates) != 2 {
-			log.Printf("Invalid coordinates in location: %v", location["coordinates"])
-			droppedRecords++
-			continue
-		}
-		latitude, ok := coordinates[1].(float64)
-		if !ok {
-			log.Printf("Invalid latitude in coordinates: %v", coordinates[1])
-			droppedRecords++
-			continue
-		}
-		longitude, ok := coordinates[0].(float64)
-		if !ok {
-			log.Printf("Invalid longitude in coordinates: %v", coordinates[0])
 			droppedRecords++
 			continue
 		}
 
 		// Create a cleaned Covid VI record
 		covidVI := struct {
-			Geography_type                        string  `json:"geography_type"`
-			Community_area_or_zip                 string  `json:"community_area_or_zip"`
-			Community_area_name                   string  `json:"community_area_name"`
-			CCVI_score                            float64 `json:"ccvi_score"`
-			CCVI_category                         string  `json:"ccvi_category"`
-			Rank_socioeconomic_status             int     `json:"rank_socioeconomic_status"`
-			Rank_household_composition            int     `json:"rank_household_composition"`
-			Rank_adults_no_pcp                    int     `json:"rank_adults_no_pcp"`
-			Rank_cumulative_mobility_ratio        int     `json:"rank_cumulative_mobility_ratio"`
-			Rank_frontline_essential_workers      int     `json:"rank_frontline_essential_workers"`
-			Rank_age_65_plus                      int     `json:"rank_age_65_plus"`
-			Rank_comorbid_conditions              int     `json:"rank_comorbid_conditions"`
-			Rank_covid_19_incidence_rate          int     `json:"rank_covid_19_incidence_rate"`
-			Rank_covid_19_hospital_admission_rate int     `json:"rank_covid_19_hospital_admission_rate"`
-			Rank_covid_19_crude_mortality_rate    int     `json:"rank_covid_19_crude_mortality_rate"`
-			Latitude                              float64 `json:"latitude"`
-			Longitude                             float64 `json:"longitude"`
+			Community_area_or_zip string `json:"community_area_or_zip"`
+			Community_area_name   string `json:"community_area_name"`
+			CCVI_category         string `json:"ccvi_category"`
 		}{
-			Geography_type:                        geographyType,
-			Community_area_or_zip:                 communityAreaOrZip,
-			Community_area_name:                   communityAreaName,
-			CCVI_score:                            ccviScore,
-			CCVI_category:                         ccviCategory,
-			Rank_socioeconomic_status:             rankSocioeconomicStatus,
-			Rank_household_composition:            rankHouseholdComposition,
-			Rank_adults_no_pcp:                    rankAdultsNoPcp,
-			Rank_cumulative_mobility_ratio:        rankCumulativeMobilityRatio,
-			Rank_frontline_essential_workers:      rankFrontlineEssentialWorkers,
-			Rank_age_65_plus:                      rankAge65Plus,
-			Rank_comorbid_conditions:              rankComorbidConditions,
-			Rank_covid_19_incidence_rate:          rankCovid19IncidenceRate,
-			Rank_covid_19_hospital_admission_rate: rankCovid19HospitalAdmissionRate,
-			Rank_covid_19_crude_mortality_rate:    rankCovid19CrudeMortalityRate,
-			Latitude:                              latitude,
-			Longitude:                             longitude,
+			Community_area_or_zip: communityAreaOrZip,
+			Community_area_name:   communityAreaName,
+			CCVI_category:         ccviCategory,
 		}
 		records = append(records, covidVI)
 	}
@@ -725,6 +578,7 @@ func cleanCovidVI(data map[string]interface{}) (CovidVIJsonRecords, error) {
 }
 
 func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecords, error) {
+	// TODO: Identify which columns can be nullable and which necessitate dropping a record
 	log.Printf("Applying cleaning rules for Building Permits: %+v", data)
 	var records BuildingPermitsJsonRecords
 	var droppedRecords int
@@ -734,34 +588,26 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 		recMap := record.(map[string]interface{})
 
 		// Clean each field
-		id, ok := recMap["id"].(string)
-		if !ok {
+		id, err := parseString(recMap["id"])
+		if err != nil {
 			log.Printf("Missing or invalid id: %v", recMap["id"])
 			droppedRecords++
 			continue
 		}
-		permitCode, ok := recMap["permit_"].(string)
-		if !ok {
-			log.Printf("Missing or invalid permit_code: %v", recMap["permit_code"])
+		permitStatus, err := parseString(recMap["permit_status"])
+		if err != nil {
+			log.Printf("Missing or invalid permit_status: %v", recMap["permit_status"])
 			droppedRecords++
 			continue
 		}
-		permitStatus, ok := recMap["permit_status"].(string)
-		if !ok {
-			permitStatus = ""
-		}
-		permitMilestone, ok := recMap["permit_milestone"].(string)
-		if !ok {
-			permitMilestone = ""
-		}
-		permitType, ok := recMap["permit_type"].(string)
-		if !ok {
+		permitType, err := parseString(recMap["permit_type"])
+		if err != nil {
 			log.Printf("Missing or invalid permit_type: %v", recMap["permit_type"])
 			droppedRecords++
 			continue
 		}
-		reviewType, ok := recMap["review_type"].(string)
-		if !ok {
+		reviewType, err := parseString(recMap["review_type"])
+		if err != nil {
 			log.Printf("Missing or invalid review_type: %v", recMap["review_type"])
 			droppedRecords++
 			continue
@@ -790,192 +636,44 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 			droppedRecords++
 			continue
 		}
-		processingTime, ok := recMap["processing_time"].(string)
-		if !ok {
-			log.Printf("Missing or invalid processing_time: %v", recMap["processing_time"])
-			droppedRecords++
-			continue
-		}
-		streetNumber, ok := recMap["street_number"].(string)
-		if !ok {
-			log.Printf("Missing or invalid street_number: %v", recMap["street_number"])
-			droppedRecords++
-			continue
-		}
-		streetDirection, ok := recMap["street_direction"].(string)
-		if !ok {
-			log.Printf("Missing or invalid street_direction: %v", recMap["street_direction"])
-			droppedRecords++
-			continue
-		}
-		streetName, ok := recMap["street_name"].(string)
-		if !ok {
-			log.Printf("Missing or invalid street_name: %v", recMap["street_name"])
-			droppedRecords++
-			continue
-		}
-		workType, ok := recMap["work_type"].(string)
-		if !ok {
-			workType = ""
-		}
-		workDescription, ok := recMap["work_description"].(string)
-		if !ok {
-			log.Printf("Missing or invalid work_description: %v", recMap["work_description"])
-			droppedRecords++
-			continue
-		}
-		buildingFeePaid, err := parseFloat(recMap["building_fee_paid"])
+		workType, err := parseString(recMap["work_type"])
 		if err != nil {
-			log.Printf("Failed to convert building_fee_paid: %v", err)
-			droppedRecords++
-			continue
-		}
-		zoningFeePaid, err := parseFloat(recMap["zoning_fee_paid"])
-		if err != nil {
-			log.Printf("Failed to convert zoning_fee_paid: %v", err)
-			droppedRecords++
-			continue
-		}
-		otherFeePaid, err := parseFloat(recMap["other_fee_paid"])
-		if err != nil {
-			log.Printf("Failed to convert other_fee_paid: %v", err)
-			droppedRecords++
-			continue
-		}
-		subtotalPaid, err := parseFloat(recMap["subtotal_paid"])
-		if err != nil {
-			log.Printf("Failed to convert subtotal_paid: %v", err)
-			droppedRecords++
-			continue
-		}
-		buildingFeeUnpaid, err := parseFloat(recMap["building_fee_unpaid"])
-		if err != nil {
-			log.Printf("Failed to convert building_fee_unpaid: %v", err)
-			droppedRecords++
-			continue
-		}
-		zoningFeeUnpaid, err := parseFloat(recMap["zoning_fee_unpaid"])
-		if err != nil {
-			log.Printf("Failed to convert zoning_fee_unpaid: %v", err)
-			droppedRecords++
-			continue
-		}
-		otherFeeUnpaid, err := parseFloat(recMap["other_fee_unpaid"])
-		if err != nil {
-			log.Printf("Failed to convert other_fee_unpaid: %v", err)
-			droppedRecords++
-			continue
-		}
-		subtotalUnpaid, err := parseFloat(recMap["subtotal_unpaid"])
-		if err != nil {
-			log.Printf("Failed to convert subtotal_unpaid: %v", err)
-			droppedRecords++
-			continue
-		}
-		buildingFeeWaived, err := parseFloat(recMap["building_fee_waived"])
-		if err != nil {
-			log.Printf("Failed to convert building_fee_waived: %v", err)
-			droppedRecords++
-			continue
-		}
-		buildingFeeSubtotal, err := parseFloat(recMap["building_fee_subtotal"])
-		if err != nil {
-			log.Printf("Failed to convert building_fee_subtotal: %v", err)
-			droppedRecords++
-			continue
-		}
-		zoningFeeSubtotal, err := parseFloat(recMap["zoning_fee_subtotal"])
-		if err != nil {
-			log.Printf("Failed to convert zoning_fee_subtotal: %v", err)
-			droppedRecords++
-			continue
-		}
-		otherFeeSubtotal, err := parseFloat(recMap["other_fee_subtotal"])
-		if err != nil {
-			log.Printf("Failed to convert other_fee_subtotal: %v", err)
-			droppedRecords++
-			continue
-		}
-		zoningFeeWaived, err := parseFloat(recMap["zoning_fee_waived"])
-		if err != nil {
-			log.Printf("Failed to convert zoning_fee_waived: %v", err)
-			droppedRecords++
-			continue
-		}
-		otherFeeWaived, err := parseFloat(recMap["other_fee_waived"])
-		if err != nil {
-			log.Printf("Failed to convert other_fee_waived: %v", err)
-			droppedRecords++
-			continue
-		}
-		subtotalWaived, err := parseFloat(recMap["subtotal_waived"])
-		if err != nil {
-			log.Printf("Failed to convert subtotal_waived: %v", err)
+			log.Printf("Missing or invalid work_type: %v", recMap["work_type"])
 			droppedRecords++
 			continue
 		}
 		totalFee, err := parseFloat(recMap["total_fee"])
 		if err != nil {
-			log.Printf("Failed to convert total_fee: %v", err)
+			log.Printf("Missing or invalid total_fee: %v", recMap["total_fee"])
 			droppedRecords++
 			continue
 		}
-		contact1Type, ok := recMap["contact_1_type"].(string)
-		if !ok {
-			contact1Type = ""
-		}
-		contact1Name, ok := recMap["contact_1_name"].(string)
-		if !ok {
-			contact1Name = ""
-		}
-		contact1City, ok := recMap["contact_1_city"].(string)
-		if !ok {
-			contact1City = ""
-		}
-		contact1State, ok := recMap["contact_1_state"].(string)
-		if !ok {
-			contact1State = ""
-		}
-		contact1Zipcode, ok := recMap["contact_1_zipcode"].(string)
-		if !ok {
-			contact1Zipcode = ""
-		}
-		reportedCost, ok := recMap["reported_cost"].(string)
-		if !ok {
+		reportedCost, err := parseString(recMap["reported_cost"])
+		if err != nil {
 			log.Printf("Missing or invalid reported_cost: %v", recMap["reported_cost"])
 			droppedRecords++
 			continue
 		}
-		communityArea, ok := recMap["community_area"].(string)
-		if !ok {
-			communityArea = ""
+		communityArea, err := parseString(recMap["community_area"])
+		if err != nil {
+			log.Printf("Missing or invalid community_area: %v", recMap["community_area"])
+			droppedRecords++
+			continue
 		}
-		censusTract, ok := recMap["census_tract"].(string)
-		if !ok {
-			censusTract = ""
+		latitude, err := parseString(recMap["latitude"])
+		if err != nil {
+			log.Printf("Missing or invalid latitude: %v", recMap["latitude"])
+			droppedRecords++
+			continue
 		}
-		ward, ok := recMap["ward"].(string)
-		if !ok {
-			ward = ""
-		}
-		xcoordinate, ok := recMap["xcoordinate"].(string)
-		if !ok {
-			xcoordinate = ""
-		}
-		ycoordinate, ok := recMap["ycoordinate"].(string)
-		if !ok {
-			ycoordinate = ""
-		}
-		latitude, ok := recMap["latitude"].(string)
-		if !ok {
-			latitude = ""
-		}
-		longitude, ok := recMap["longitude"].(string)
-		if !ok {
-			longitude = ""
+		longitude, err := parseString(recMap["longitude"])
+		if err != nil {
+			log.Printf("Missing or invalid longitude: %v", recMap["longitude"])
+			droppedRecords++
+			continue
 		}
 		// Drop records with missing location fields
-		if communityArea == "" && censusTract == "" && ward == "" && xcoordinate == "" && ycoordinate == "" && latitude == "" && longitude == "" {
+		if (communityArea == "") && (latitude == "") && (longitude == "") {
 			log.Printf("All location fields are missing, dropping record")
 			droppedRecords++
 			continue
@@ -984,90 +682,28 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 		// Create a cleaned Building Permits record
 		buildingPermit := struct {
 			Id                     string    `json:"id"`
-			Permit_code            string    `json:"permit_"`
 			Permit_status          string    `json:"permit_status"`
-			Permit_milestone       string    `json:"permit_milestone"`
 			Permit_type            string    `json:"permit_type"`
 			Review_type            string    `json:"review_type"`
 			Application_start_date time.Time `json:"application_start_date"`
 			Issue_date             time.Time `json:"issue_date"`
-			Processing_time        string    `json:"processing_time"`
-			Street_number          string    `json:"street_number"`
-			Street_direction       string    `json:"street_direction"`
-			Street_name            string    `json:"street_name"`
 			Work_type              string    `json:"work_type"`
-			Work_description       string    `json:"work_description"`
-			Building_fee_paid      float64   `json:"building_fee_paid"`
-			Zoning_fee_paid        float64   `json:"zoning_fee_paid"`
-			Other_fee_paid         float64   `json:"other_fee_paid"`
-			Subtotal_paid          float64   `json:"subtotal_paid"`
-			Building_fee_unpaid    float64   `json:"building_fee_unpaid"`
-			Zoning_fee_unpaid      float64   `json:"zoning_fee_unpaid"`
-			Other_fee_unpaid       float64   `json:"other_fee_unpaid"`
-			Subtotal_unpaid        float64   `json:"subtotal_unpaid"`
-			Building_fee_waived    float64   `json:"building_fee_waived"`
-			Building_fee_subtotal  float64   `json:"building_fee_subtotal"`
-			Zoning_fee_subtotal    float64   `json:"zoning_fee_subtotal"`
-			Other_fee_subtotal     float64   `json:"other_fee_subtotal"`
-			Zoning_fee_waived      float64   `json:"zoning_fee_waived"`
-			Other_fee_waived       float64   `json:"other_fee_waived"`
-			Subtotal_waived        float64   `json:"subtotal_waived"`
 			Total_fee              float64   `json:"total_fee"`
-			Contact_1_type         string    `json:"contact_1_type"`
-			Contact_1_name         string    `json:"contact_1_name"`
-			Contact_1_city         string    `json:"contact_1_city"`
-			Contact_1_state        string    `json:"contact_1_state"`
-			Contact_1_zipcode      string    `json:"contact_1_zipcode"`
 			Reported_cost          string    `json:"reported_cost"`
 			Community_area         string    `json:"community_area"`
-			Census_tract           string    `json:"census_tract"`
-			Ward                   string    `json:"ward"`
-			Xcoordinate            string    `json:"xcoordinate"`
-			Ycoordinate            string    `json:"ycoordinate"`
 			Latitude               string    `json:"latitude"`
 			Longitude              string    `json:"longitude"`
 		}{
 			Id:                     id,
-			Permit_code:            permitCode,
 			Permit_status:          permitStatus,
-			Permit_milestone:       permitMilestone,
 			Permit_type:            permitType,
 			Review_type:            reviewType,
 			Application_start_date: applicationStartDate,
 			Issue_date:             issueDate,
-			Processing_time:        processingTime,
-			Street_number:          streetNumber,
-			Street_direction:       streetDirection,
-			Street_name:            streetName,
 			Work_type:              workType,
-			Work_description:       workDescription,
-			Building_fee_paid:      buildingFeePaid,
-			Zoning_fee_paid:        zoningFeePaid,
-			Other_fee_paid:         otherFeePaid,
-			Subtotal_paid:          subtotalPaid,
-			Building_fee_unpaid:    buildingFeeUnpaid,
-			Zoning_fee_unpaid:      zoningFeeUnpaid,
-			Other_fee_unpaid:       otherFeeUnpaid,
-			Subtotal_unpaid:        subtotalUnpaid,
-			Building_fee_waived:    buildingFeeWaived,
-			Building_fee_subtotal:  buildingFeeSubtotal,
-			Zoning_fee_subtotal:    zoningFeeSubtotal,
-			Other_fee_subtotal:     otherFeeSubtotal,
-			Zoning_fee_waived:      zoningFeeWaived,
-			Other_fee_waived:       otherFeeWaived,
-			Subtotal_waived:        subtotalWaived,
 			Total_fee:              totalFee,
-			Contact_1_type:         contact1Type,
-			Contact_1_name:         contact1Name,
-			Contact_1_city:         contact1City,
-			Contact_1_state:        contact1State,
-			Contact_1_zipcode:      contact1Zipcode,
 			Reported_cost:          reportedCost,
 			Community_area:         communityArea,
-			Census_tract:           censusTract,
-			Ward:                   ward,
-			Xcoordinate:            xcoordinate,
-			Ycoordinate:            ycoordinate,
 			Latitude:               latitude,
 			Longitude:              longitude,
 		}
@@ -1088,21 +724,15 @@ func cleanCensusData(data map[string]interface{}) (CensusDataJsonRecords, error)
 		recMap := record.(map[string]interface{})
 
 		// Clean each field
-		communityAreaNumber, ok := recMap["ca"].(string)
-		if !ok {
+		communityAreaNumber, err := parseString(recMap["ca"])
+		if err != nil {
 			log.Printf("Missing or invalid community_area_number: %v", recMap["community_area_number"])
 			droppedRecords++
 			continue
 		}
-		communityAreaName, ok := recMap["community_area_name"].(string)
-		if !ok {
-			log.Printf("Missing or invalid community_area_name: %v", recMap["community_area_name"])
-			droppedRecords++
-			continue
-		}
-		percentOfHousingCrowded, err := parseFloat(recMap["percent_of_housing_crowded"])
+		communityAreaName, err := parseString(recMap["community_area_name"])
 		if err != nil {
-			log.Printf("Failed to convert percent_of_housing_crowded: %v", err)
+			log.Printf("Missing or invalid community_area_name: %v", recMap["community_area_name"])
 			droppedRecords++
 			continue
 		}
@@ -1118,52 +748,26 @@ func cleanCensusData(data map[string]interface{}) (CensusDataJsonRecords, error)
 			droppedRecords++
 			continue
 		}
-		percentAged25WithoutHighSchoolDiploma, err := parseFloat(recMap["percent_aged_25_without_high_school_diploma"])
-		if err != nil {
-			log.Printf("Failed to convert percent_aged_25_without_high_school_diploma: %v", err)
-			droppedRecords++
-			continue
-		}
-		percentAgedUnder18OrOver64, err := parseFloat(recMap["percent_aged_under_18_or_over_64"])
-		if err != nil {
-			log.Printf("Failed to convert percent_aged_under_18_or_over_64: %v", err)
-			droppedRecords++
-			continue
-		}
 		perCapitaIncome, err := parseInt(recMap["per_capita_income_"])
 		if err != nil {
 			log.Printf("Failed to convert per_capita_income: %v", err)
 			droppedRecords++
 			continue
 		}
-		hardshipIndex, err := parseInt(recMap["hardship_index"])
-		if err != nil {
-			log.Printf("Failed to convert hardship_index: %v", err)
-			droppedRecords++
-			continue
-		}
 
 		// Create a cleaned Census Data record
 		censusData := struct {
-			Community_area_number                       string  `json:"community_area_number"`
-			Community_area_name                         string  `json:"community_area_name"`
-			Percent_of_housing_crowded                  float64 `json:"percent_of_housing_crowded"`
-			Percent_households_below_poverty            float64 `json:"percent_households_below_poverty"`
-			Percent_aged_16_unemployed                  float64 `json:"percent_aged_16_unemployed"`
-			Percent_aged_25_without_high_school_diploma float64 `json:"percent_aged_25_without_high_school_diploma"`
-			Percent_aged_under_18_or_over_64            float64 `json:"percent_aged_under_18_or_over_64"`
-			Per_capita_income                           int     `json:"per_capita_income"`
-			Hardship_index                              int     `json:"hardship_index"`
+			Community_area_number            string  `json:"community_area_number"`
+			Community_area_name              string  `json:"community_area_name"`
+			Percent_households_below_poverty float64 `json:"percent_households_below_poverty"`
+			Percent_aged_16_unemployed       float64 `json:"percent_aged_16_unemployed"`
+			Per_capita_income                int64   `json:"per_capita_income"`
 		}{
-			Community_area_number:                       communityAreaNumber,
-			Community_area_name:                         communityAreaName,
-			Percent_of_housing_crowded:                  percentOfHousingCrowded,
-			Percent_households_below_poverty:            percentHouseholdsBelowPoverty,
-			Percent_aged_16_unemployed:                  percentAged16Unemployed,
-			Percent_aged_25_without_high_school_diploma: percentAged25WithoutHighSchoolDiploma,
-			Percent_aged_under_18_or_over_64:            percentAgedUnder18OrOver64,
-			Per_capita_income:                           perCapitaIncome,
-			Hardship_index:                              hardshipIndex,
+			Community_area_number:            communityAreaNumber,
+			Community_area_name:              communityAreaName,
+			Percent_households_below_poverty: percentHouseholdsBelowPoverty,
+			Percent_aged_16_unemployed:       percentAged16Unemployed,
+			Per_capita_income:                perCapitaIncome,
 		}
 		records = append(records, censusData)
 	}
@@ -1182,8 +786,8 @@ func cleanTransportationTrips(data map[string]interface{}) (TransportationTripsJ
 		recMap := record.(map[string]interface{})
 
 		// Clean each field
-		tripID, ok := recMap["trip_id"].(string)
-		if !ok {
+		tripID, err := parseString(recMap["trip_id"])
+		if err != nil {
 			log.Printf("Missing or invalid trip_id: %v", recMap["trip_id"])
 			droppedRecords++
 			continue
@@ -1212,46 +816,50 @@ func cleanTransportationTrips(data map[string]interface{}) (TransportationTripsJ
 			droppedRecords++
 			continue
 		}
-		pickupCensusTract, ok := recMap["pickup_census_tract"].(string)
-		if !ok {
-			pickupCensusTract = ""
+		pickupCensusTract, err := parseString(recMap["pickup_census_tract"])
+		if err != nil {
+			log.Printf("Missing or invalid pickup_census_tract: %v", recMap["pickup_census_tract"])
+			droppedRecords++
+			continue
 		}
-		dropoffCensusTract, ok := recMap["dropoff_census_tract"].(string)
-		if !ok {
-			dropoffCensusTract = ""
+		dropoffCensusTract, err := parseString(recMap["dropoff_census_tract"])
+		if err != nil {
+			log.Printf("Missing or invalid dropoff_census_tract: %v", recMap["dropoff_census_tract"])
+			droppedRecords++
+			continue
 		}
-		pickupCommunityArea, ok := recMap["pickup_community_area"].(string)
-		if !ok {
+		pickupCommunityArea, err := parseString(recMap["pickup_community_area"])
+		if err != nil {
 			log.Printf("Missing or invalid pickup_community_area: %v", recMap["pickup_community_area"])
 			droppedRecords++
 			continue
 		}
-		dropoffCommunityArea, ok := recMap["dropoff_community_area"].(string)
-		if !ok {
+		dropoffCommunityArea, err := parseString(recMap["dropoff_community_area"])
+		if err != nil {
 			log.Printf("Missing or invalid dropoff_community_area: %v", recMap["dropoff_community_area"])
 			droppedRecords++
 			continue
 		}
-		pickupCentroidLatitude, ok := recMap["pickup_centroid_latitude"].(string)
-		if !ok {
+		pickupCentroidLatitude, err := parseString(recMap["pickup_centroid_latitude"])
+		if err != nil {
 			log.Printf("Missing or invalid pickup_centroid_latitude: %v", recMap["pickup_centroid_latitude"])
 			droppedRecords++
 			continue
 		}
-		pickupCentroidLongitude, ok := recMap["pickup_centroid_longitude"].(string)
-		if !ok {
+		pickupCentroidLongitude, err := parseString(recMap["pickup_centroid_longitude"])
+		if err != nil {
 			log.Printf("Missing or invalid pickup_centroid_longitude: %v", recMap["pickup_centroid_longitude"])
 			droppedRecords++
 			continue
 		}
-		dropoffCentroidLatitude, ok := recMap["dropoff_centroid_latitude"].(string)
-		if !ok {
+		dropoffCentroidLatitude, err := parseString(recMap["dropoff_centroid_latitude"])
+		if err != nil {
 			log.Printf("Missing or invalid dropoff_centroid_latitude: %v", recMap["dropoff_centroid_latitude"])
 			droppedRecords++
 			continue
 		}
-		dropoffCentroidLongitude, ok := recMap["dropoff_centroid_longitude"].(string)
-		if !ok {
+		dropoffCentroidLongitude, err := parseString(recMap["dropoff_centroid_longitude"])
+		if err != nil {
 			log.Printf("Missing or invalid dropoff_centroid_longitude: %v", recMap["dropoff_centroid_longitude"])
 			droppedRecords++
 			continue
@@ -1300,119 +908,23 @@ func cleanPHS(data map[string]interface{}) (PHSJsonRecords, error) {
 		recMap := record.(map[string]interface{})
 
 		// Clean each field
-		communityArea, ok := recMap["community_area"].(string)
-		if !ok {
+		communityArea, err := parseString(recMap["community_area"])
+		if err != nil {
 			log.Printf("Missing or invalid community_area: %v", recMap["community_area"])
 			droppedRecords++
 			continue
 		}
-		communityAreaName, ok := recMap["community_area_name"].(string)
-		if !ok {
+		communityAreaName, err := parseString(recMap["community_area_name"])
+		if err != nil {
 			log.Printf("Missing or invalid community_area_name: %v", recMap["community_area_name"])
 			droppedRecords++
 			continue
-		}
-		birthRate, err := parseFloat(recMap["birth_rate"])
-		if err != nil {
-			birthRate = -1
-		}
-		generalFertilityRate, err := parseFloat(recMap["general_fertility_rate"])
-		if err != nil {
-			generalFertilityRate = -1
-		}
-		lowBirthWeight, err := parseFloat(recMap["low_birth_weight"])
-		if err != nil {
-			lowBirthWeight = -1
-		}
-		prenatalCareBeginningInFirstTrimester, err := parseFloat(recMap["prenatal_care_beginning_in_first_trimester"])
-		if err != nil {
-			prenatalCareBeginningInFirstTrimester = -1
-		}
-		pretermBirths, err := parseFloat(recMap["preterm_births"])
-		if err != nil {
-			pretermBirths = -1
-		}
-		teenBirthRate, err := parseFloat(recMap["teen_birth_rate"])
-		if err != nil {
-			teenBirthRate = -1
-		}
-		assaultHomicide, err := parseFloat(recMap["assault_homicide"])
-		if err != nil {
-			assaultHomicide = -1
-		}
-		breastCancerInFemales, err := parseFloat(recMap["breast_cancer_in_females"])
-		if err != nil {
-			breastCancerInFemales = -1
-		}
-		cancerAllSites, err := parseFloat(recMap["cancer_all_sites"])
-		if err != nil {
-			cancerAllSites = -1
-		}
-		colorectalCancer, err := parseFloat(recMap["colorectal_cancer"])
-		if err != nil {
-			colorectalCancer = -1
-		}
-		diabetesRelated, err := parseFloat(recMap["diabetes_related"])
-		if err != nil {
-			diabetesRelated = -1
-		}
-		firearmRelated, err := parseFloat(recMap["firearm_related"])
-		if err != nil {
-			firearmRelated = -1
-		}
-		infantMortalityRate, err := parseFloat(recMap["infant_mortality_rate"])
-		if err != nil {
-			infantMortalityRate = -1
-		}
-		lungCancer, err := parseFloat(recMap["lung_cancer"])
-		if err != nil {
-			lungCancer = -1
-		}
-		prostateCancerInMales, err := parseFloat(recMap["prostate_cancer_in_males"])
-		if err != nil {
-			prostateCancerInMales = -1
-		}
-		strokeCerebrovascularDisease, err := parseFloat(recMap["stroke_cerebrovascular_disease"])
-		if err != nil {
-			strokeCerebrovascularDisease = -1
-		}
-		childhoodBloodLeadLevelScreening, err := parseFloat(recMap["childhood_blood_lead_level_screening"])
-		if err != nil {
-			childhoodBloodLeadLevelScreening = -1
-		}
-		childhoodLeadPoisoning, err := parseFloat(recMap["childhood_lead_poisoning"])
-		if err != nil {
-			childhoodLeadPoisoning = -1
-		}
-		gonorrheaInFemales, err := parseFloat(recMap["gonorrhea_in_females"])
-		if err != nil {
-			gonorrheaInFemales = -1
-		}
-		gonorrheaInMales, err := parseFloat(recMap["gonorrhea_in_males"])
-		if err != nil {
-			gonorrheaInMales = -1
-		}
-		tuberculosis, err := parseFloat(recMap["tuberculosis"])
-		if err != nil {
-			tuberculosis = -1
 		}
 		belowPovertyLevel, err := parseFloat(recMap["below_poverty_level"])
 		if err != nil {
 			log.Printf("Failed to convert below_poverty_level: %v", err)
 			droppedRecords++
 			continue
-		}
-		crowdedHousing, err := parseFloat(recMap["crowded_housing"])
-		if err != nil {
-			crowdedHousing = -1
-		}
-		dependency, err := parseFloat(recMap["dependency"])
-		if err != nil {
-			dependency = -1
-		}
-		noHighSchoolDiploma, err := parseFloat(recMap["no_high_school_diploma"])
-		if err != nil {
-			noHighSchoolDiploma = -1
 		}
 		perCapitaIncome, err := parseFloat(recMap["per_capita_income"])
 		if err != nil {
@@ -1429,65 +941,17 @@ func cleanPHS(data map[string]interface{}) (PHSJsonRecords, error) {
 
 		// Create a cleaned Public Health Statistics record
 		phs := struct {
-			Community_area                             string  `json:"community_area"`
-			Community_area_name                        string  `json:"community_area_name"`
-			Birth_rate                                 float64 `json:"birth_rate"`
-			General_fertility_rate                     float64 `json:"general_fertility_rate"`
-			Low_birth_weight                           float64 `json:"low_birth_weight"`
-			Prenatal_care_beginning_in_first_trimester float64 `json:"prenatal_care_beginning_in_first_trimester"`
-			Preterm_births                             float64 `json:"preterm_births"`
-			Teen_birth_rate                            float64 `json:"teen_birth_rate"`
-			Assault_homicide                           float64 `json:"assault_homicide"`
-			Breast_cancer_in_females                   float64 `json:"breast_cancer_in_females"`
-			Cancer_all_sites                           float64 `json:"cancer_all_sites"`
-			Colorectal_cancer                          float64 `json:"colorectal_cancer"`
-			Diabetes_related                           float64 `json:"diabetes_related"`
-			Firearm_related                            float64 `json:"firearm_related"`
-			Infant_mortality_rate                      float64 `json:"infant_mortality_rate"`
-			Lung_cancer                                float64 `json:"lung_cancer"`
-			Prostate_cancer_in_males                   float64 `json:"prostate_cancer_in_males"`
-			Stroke_cerebrovascular_disease             float64 `json:"stroke_cerebrovascular_disease"`
-			Childhood_blood_lead_level_screening       float64 `json:"childhood_blood_lead_level_screening"`
-			Childhood_lead_poisoning                   float64 `json:"childhood_lead_poisoning"`
-			Gonorrhea_in_females                       float64 `json:"gonorrhea_in_females"`
-			Gonorrhea_in_males                         float64 `json:"gonorrhea_in_males"`
-			Tuberculosis                               float64 `json:"tuberculosis"`
-			Below_poverty_level                        float64 `json:"below_poverty_level"`
-			Crowded_housing                            float64 `json:"crowded_housing"`
-			Dependency                                 float64 `json:"dependency"`
-			No_high_school_diploma                     float64 `json:"no_high_school_diploma"`
-			Per_capita_income                          float64 `json:"per_capita_income"`
-			Unemployment                               float64 `json:"unemployment"`
+			Community_area      string  `json:"community_area"`
+			Community_area_name string  `json:"community_area_name"`
+			Below_poverty_level float64 `json:"below_poverty_level"`
+			Per_capita_income   float64 `json:"per_capita_income"`
+			Unemployment        float64 `json:"unemployment"`
 		}{
-			Community_area:         communityArea,
-			Community_area_name:    communityAreaName,
-			Birth_rate:             birthRate,
-			General_fertility_rate: generalFertilityRate,
-			Low_birth_weight:       lowBirthWeight,
-			Prenatal_care_beginning_in_first_trimester: prenatalCareBeginningInFirstTrimester,
-			Preterm_births:                       pretermBirths,
-			Teen_birth_rate:                      teenBirthRate,
-			Assault_homicide:                     assaultHomicide,
-			Breast_cancer_in_females:             breastCancerInFemales,
-			Cancer_all_sites:                     cancerAllSites,
-			Colorectal_cancer:                    colorectalCancer,
-			Diabetes_related:                     diabetesRelated,
-			Firearm_related:                      firearmRelated,
-			Infant_mortality_rate:                infantMortalityRate,
-			Lung_cancer:                          lungCancer,
-			Prostate_cancer_in_males:             prostateCancerInMales,
-			Stroke_cerebrovascular_disease:       strokeCerebrovascularDisease,
-			Childhood_blood_lead_level_screening: childhoodBloodLeadLevelScreening,
-			Childhood_lead_poisoning:             childhoodLeadPoisoning,
-			Gonorrhea_in_females:                 gonorrheaInFemales,
-			Gonorrhea_in_males:                   gonorrheaInMales,
-			Tuberculosis:                         tuberculosis,
-			Below_poverty_level:                  belowPovertyLevel,
-			Crowded_housing:                      crowdedHousing,
-			Dependency:                           dependency,
-			No_high_school_diploma:               noHighSchoolDiploma,
-			Per_capita_income:                    perCapitaIncome,
-			Unemployment:                         unemployment,
+			Community_area:      communityArea,
+			Community_area_name: communityAreaName,
+			Below_poverty_level: belowPovertyLevel,
+			Per_capita_income:   perCapitaIncome,
+			Unemployment:        unemployment,
 		}
 		records = append(records, phs)
 	}
