@@ -12,7 +12,7 @@ import (
 func main() {
 
 	// Define the limit for the APIs
-	limit := 10
+	limit := 500
 
 	// Dictionary with table names as keys and URLs as values
 	urls := map[string]string{
