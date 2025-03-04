@@ -578,7 +578,6 @@ func cleanCovidVI(data map[string]interface{}) (CovidVIJsonRecords, error) {
 }
 
 func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecords, error) {
-	// TODO: Identify which columns can be nullable and which necessitate dropping a record
 	log.Printf("Applying cleaning rules for Building Permits: %+v", data)
 	var records BuildingPermitsJsonRecords
 	var droppedRecords int
@@ -596,9 +595,7 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 		}
 		permitStatus, err := parseString(recMap["permit_status"])
 		if err != nil {
-			log.Printf("Missing or invalid permit_status: %v", recMap["permit_status"])
-			droppedRecords++
-			continue
+			permitStatus = "" // Not all records contain permit_status
 		}
 		permitType, err := parseString(recMap["permit_type"])
 		if err != nil {
@@ -650,30 +647,22 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 		}
 		reportedCost, err := parseString(recMap["reported_cost"])
 		if err != nil {
-			log.Printf("Missing or invalid reported_cost: %v", recMap["reported_cost"])
-			droppedRecords++
-			continue
+			reportedCost = "" // Not available for all records
 		}
 		communityArea, err := parseString(recMap["community_area"])
 		if err != nil {
-			log.Printf("Missing or invalid community_area: %v", recMap["community_area"])
-			droppedRecords++
-			continue
+			communityArea = "" // Missing value handled later
 		}
 		latitude, err := parseString(recMap["latitude"])
 		if err != nil {
-			log.Printf("Missing or invalid latitude: %v", recMap["latitude"])
-			droppedRecords++
-			continue
+			latitude = "" // Missing value handled later
 		}
 		longitude, err := parseString(recMap["longitude"])
 		if err != nil {
-			log.Printf("Missing or invalid longitude: %v", recMap["longitude"])
-			droppedRecords++
-			continue
+			longitude = "" // Missing value handled later
 		}
 		// Drop records with missing location fields
-		if (communityArea == "") && (latitude == "") && (longitude == "") {
+		if (communityArea == "") || ((latitude == "") && (longitude == "")) {
 			log.Printf("All location fields are missing, dropping record")
 			droppedRecords++
 			continue
