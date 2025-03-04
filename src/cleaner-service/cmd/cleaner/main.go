@@ -10,12 +10,12 @@ import (
 func main() {
 	// List of queues to consume from
 	queues := []string{
-		// "taxi_trips_raw", 				// Working
-		// "covid_cases_raw", 				// Working
-		// "covid_vulnerability_index_raw", // Working
-		// "building_permits_raw", 			// Working
-		// "census_data_raw",				// Working
-		// "transportation_trips_raw",		// Working
+		"taxi_trips_raw",
+		"covid_cases_raw",
+		"covid_vulnerability_index_raw",
+		"building_permits_raw",
+		"census_data_raw",
+		"transportation_trips_raw",
 		"public_health_statistics_raw",
 	}
 
