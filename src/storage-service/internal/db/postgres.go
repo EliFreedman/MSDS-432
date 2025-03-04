@@ -100,7 +100,7 @@ func AddRecords(tableName string, records []map[string]interface{}) error {
 		var recordPlaceholders []string
 		for _, column := range columns {
 			value := record[column]
-			fmt.Printf("Key: %s, Value: %v\n", column, value)
+			// fmt.Printf("Key: %s, Value: %v\n", column, value)
 
 			// Check for empty strings or -1 and replace with null
 			if value == "" || value == "-1" {
