@@ -152,6 +152,6 @@ func PublishToQueue(queueName string, message []byte) error {
 		return fmt.Errorf("failed to publish message: %w", err)
 	}
 
-	log.Printf("Published message to %s", queueName)
+	// log.Printf("Published message to %s", queueName)
 	return nil
 }
