@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	_ "github.com/lib/pq"
 )
@@ -95,18 +96,56 @@ func AddRecords(tableName string, records []map[string]interface{}) error {
 	}
 
 	for _, record := range records {
+		fmt.Printf("Record: %v\n", record)
 		var recordPlaceholders []string
 		for _, column := range columns {
-			values = append(values, record[column])
+			value := record[column]
+			fmt.Printf("Key: %s, Value: %v\n", column, value)
+
+			// Check for empty strings or -1 and replace with null
+			if value == "" || value == "-1" {
+				value = nil
+			}
+
+			// Append the value depending on the type
+			switch v := value.(type) {
+			case string:
+				if v != "" {
+					values = append(values, v)
+				} else {
+					values = append(values, nil) // Replace empty string with null
+				}
+			case float64:
+				if v != -1 {
+					values = append(values, v)
+				} else {
+					values = append(values, nil) // Replace -1 with null for float
+				}
+			case int64:
+				if v != -1 {
+					values = append(values, v)
+				} else {
+					values = append(values, nil) // Replace -1 with null for int
+				}
+			case time.Time:
+				if !v.IsZero() { // Check if it's a zero value time
+					values = append(values, v)
+				} else {
+					values = append(values, nil) // Replace zero value time with null
+				}
+			default:
+				return fmt.Errorf("unsupported type %T for column %s", v, column)
+			}
 			recordPlaceholders = append(recordPlaceholders, fmt.Sprintf("$%d", i))
 			i++
 		}
 		placeholders = append(placeholders, fmt.Sprintf("(%s)", strings.Join(recordPlaceholders, ", ")))
 	}
 
+	// Build the SQL query with placeholders
 	query := fmt.Sprintf("INSERT INTO %s (%s) VALUES %s;", tableName, strings.Join(columns, ", "), strings.Join(placeholders, ", "))
 
-	// Execute the SQL statement
+	// Execute the SQL statement with the values as parameters
 	_, err := db.Exec(query, values...)
 	if err != nil {
 		log.Fatalf("Error adding records: %q", err)
