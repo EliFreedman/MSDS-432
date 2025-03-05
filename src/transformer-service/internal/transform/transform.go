@@ -224,6 +224,7 @@ func transformBuildingPermits(data interface{}) (BuildingPermitsJsonRecords, err
 
 	for row := 0; row < len(data.([]interface{})); row++ {
 		record := data.([]interface{})[row].(map[string]interface{})
+		zipcode := ""
 
 		// Extract latitude and longitude
 		lat, _ := strconv.ParseFloat(record["latitude"].(string), 64)
@@ -233,16 +234,22 @@ func transformBuildingPermits(data interface{}) (BuildingPermitsJsonRecords, err
 			Longitude: long,
 		}
 
-		address, _ := geocoder.GeocodingReverse(location)
+		if lat != 0.000000 && long != 0.000000 {
+			address, _ := geocoder.GeocodingReverse(location)
 
-		// Handling locations that could not resolve addresses
-		if len(address) == 0 {
-			log.Printf("No results found for latitude : %f and longitude : %f \n", lat, long)
+			// Handling locations that could not resolve addresses
+			if len(address) == 0 && record["community_area"] == "" {
+				log.Printf("No results found for latitude : %f and longitude : %f \n", lat, long)
+				droppedRecords++
+				continue
+			}
+	
+			zipcode = address[0].PostalCode
+		} else if record["community_area"] == "" {
+			log.Print("No zipcode or community area")
 			droppedRecords++
 			continue
 		}
-
-		zipcode := address[0].PostalCode
 
 		applicationStartDate, err := parseTime(record["application_start_date"].(string))
 		if err != nil {
