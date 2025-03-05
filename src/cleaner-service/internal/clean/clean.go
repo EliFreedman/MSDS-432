@@ -58,6 +58,9 @@ type BuildingPermitsJsonRecords []struct {
 	Review_type            string    `json:"review_type"`
 	Application_start_date time.Time `json:"application_start_date"`
 	Issue_date             time.Time `json:"issue_date"`
+	Street_number	       string    `json:"street_number"`
+	Street_direction       string    `json:"street_direction"`
+	Street_name            string    `json:"street_name"`
 	Work_type              string    `json:"work_type"`
 	Total_fee              float64   `json:"total_fee"`
 	Reported_cost          string    `json:"reported_cost"`
@@ -631,6 +634,18 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 			droppedRecords++
 			continue
 		}
+		streetNumber, err := parseString(recMap["street_number"])
+		if err != nil {
+			streetNumber = "" // Not available for all records
+		}
+		streetDirection, err := parseString(recMap["street_direction"])
+		if err != nil {
+			streetDirection = "" // Not available for all records
+		}
+		streetName, err := parseString(recMap["street_name"])
+		if err != nil {
+			streetName = "" // Not available for all records
+		}
 		workType, err := parseString(recMap["work_type"])
 		if err != nil {
 			workType = "" // Not available for all records
@@ -658,7 +673,7 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 			longitude = "" // Missing value handled later
 		}
 		// Drop records with missing location fields
-		if (communityArea == "") || ((latitude == "") && (longitude == "")) {
+		if (communityArea == "") && ((latitude == "") && (longitude == "")) && ((streetNumber == "") && (streetDirection == "") && (streetName == "")){
 			log.Printf("All location fields are missing, dropping record")
 			droppedRecords++
 			continue
@@ -672,6 +687,9 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 			Review_type            string    `json:"review_type"`
 			Application_start_date time.Time `json:"application_start_date"`
 			Issue_date             time.Time `json:"issue_date"`
+			Street_number	       string    `json:"street_number"`
+			Street_direction       string    `json:"street_direction"`
+			Street_name            string    `json:"street_name"`
 			Work_type              string    `json:"work_type"`
 			Total_fee              float64   `json:"total_fee"`
 			Reported_cost          string    `json:"reported_cost"`
@@ -685,6 +703,9 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 			Review_type:            reviewType,
 			Application_start_date: applicationStartDate,
 			Issue_date:             issueDate,
+			Street_number:          streetNumber,
+			Street_direction:       streetDirection,
+			Street_name:            streetName,
 			Work_type:              workType,
 			Total_fee:              totalFee,
 			Reported_cost:          reportedCost,
