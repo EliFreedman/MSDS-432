@@ -673,7 +673,7 @@ func cleanBuildingPermits(data map[string]interface{}) (BuildingPermitsJsonRecor
 			longitude = "" // Missing value handled later
 		}
 		// Drop records with missing location fields
-		if (communityArea == "") && ((latitude == "") && (longitude == "")) && ((streetNumber == "") && (streetDirection == "") && (streetName == "")){
+		if (communityArea == "") && ((latitude == "") && (longitude == "")){
 			log.Printf("All location fields are missing, dropping record")
 			droppedRecords++
 			continue
