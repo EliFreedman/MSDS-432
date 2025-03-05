@@ -32,6 +32,9 @@ type BuildingPermitsJsonRecords []struct {
 	Review_type            string    `json:"review_type"`
 	Application_start_date time.Time `json:"application_start_date"`
 	Issue_date             time.Time `json:"issue_date"`
+	Street_number	       string    `json:"street_number"`
+	Street_direction       string    `json:"street_direction"`
+	Street_name            string    `json:"street_name"`
 	Work_type              string    `json:"work_type"`
 	Total_fee              float64   `json:"total_fee"`
 	Reported_cost          string    `json:"reported_cost"`
@@ -258,6 +261,9 @@ func transformBuildingPermits(data interface{}) (BuildingPermitsJsonRecords, err
 			Review_type            string    `json:"review_type"`
 			Application_start_date time.Time `json:"application_start_date"`
 			Issue_date             time.Time `json:"issue_date"`
+			Street_number	       string    `json:"street_number"`
+			Street_direction       string    `json:"street_direction"`
+			Street_name            string    `json:"street_name"`
 			Work_type              string    `json:"work_type"`
 			Total_fee              float64   `json:"total_fee"`
 			Reported_cost          string    `json:"reported_cost"`
@@ -272,6 +278,9 @@ func transformBuildingPermits(data interface{}) (BuildingPermitsJsonRecords, err
 			Review_type:            record["review_type"].(string),
 			Application_start_date: applicationStartDate,
 			Issue_date:             issueDate,
+			Street_number:          record["street_number"].(string),
+			Street_direction:		record["street_direction"].(string),
+			Street_name:			record["street_name"].(string),
 			Work_type:              record["work_type"].(string),
 			Total_fee:              record["total_fee"].(float64),
 			Reported_cost:          record["reported_cost"].(string),
