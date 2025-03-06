@@ -13,37 +13,43 @@ import (
 func main() {
 
 	// Define the limit for the APIs
-	limit := 500
+	limit := 1000
 
-	// Dictionary with table names as keys and URLs as values
-	urls := map[string]string{
-		"taxi_trips":                fmt.Sprintf("https://data.cityofchicago.org/resource/wrvz-psew.json?$limit=%d", limit),
-		"covid_cases":               fmt.Sprintf("https://data.cityofchicago.org/resource/yhhz-zm2v.json?$limit=%d", limit),
-		"covid_vulnerability_index": fmt.Sprintf("https://data.cityofchicago.org/resource/xhc6-88s9.json?$limit=%d", limit),
-		"building_permits":          fmt.Sprintf("https://data.cityofchicago.org/resource/ydr8-5enu.json?$limit=%d", limit),
-		"census_data":               fmt.Sprintf("https://data.cityofchicago.org/resource/kn9c-c2s2.json?$limit=%d", limit),
-		"transportation_trips":      fmt.Sprintf("https://data.cityofchicago.org/resource/m6dm-c72p.json?$limit=%d", limit),
-		"public_health_statistics":  fmt.Sprintf("https://data.cityofchicago.org/resource/iqnk-2tcu.json?$limit=%d", limit),
+	// Dictionary with table names as keys and base URLs as values
+	baseURLs := map[string]string{
+		"taxi_trips":                "https://data.cityofchicago.org/resource/wrvz-psew.json?$limit=%d&$offset=%d",
+		"covid_cases":               "https://data.cityofchicago.org/resource/yhhz-zm2v.json?$limit=%d&$offset=%d",
+		"covid_vulnerability_index": "https://data.cityofchicago.org/resource/xhc6-88s9.json?$limit=%d&$offset=%d",
+		"building_permits":          "https://data.cityofchicago.org/resource/ydr8-5enu.json?$limit=%d&$offset=%d",
+		"census_data":               "https://data.cityofchicago.org/resource/kn9c-c2s2.json?$limit=%d&$offset=%d",
+		"transportation_trips":      "https://data.cityofchicago.org/resource/m6dm-c72p.json?$limit=%d&$offset=%d",
+		"public_health_statistics":  "https://data.cityofchicago.org/resource/iqnk-2tcu.json?$limit=%d&$offset=%d",
 	}
 
 	// Repeat the process 5 times
-	for i := 0; i < 20; i++ {
+	for i := 0; i < 5; i++ {
 		// Create a channel to receive data from the goroutines
 		dataChan := make(chan map[string]interface{})
 		var wg sync.WaitGroup
 
 		// Start a new goroutine for each URL
-		for tableName, url := range urls {
+		for tableName, baseURL := range baseURLs {
+			offset := 0 // Start from the first page
 			wg.Add(1)
-			go func(tableName, url string) {
+			go func(tableName, baseURL string) {
 				defer wg.Done()
 				ch := make(chan map[string]interface{})
+				// Construct the URL with the current offset
+				url := fmt.Sprintf(baseURL, limit, offset)
 				go fetch.FetchData(url, ch)
 
 				data := <-ch
 				data["table_name"] = tableName // Add table name to the data
 				dataChan <- data
-			}(tableName, url)
+
+				// Increment the offset for the next page
+				offset += limit
+			}(tableName, baseURL)
 		}
 
 		// Collect data from the dataChan and publish to RabbitMQ
@@ -75,9 +81,7 @@ func main() {
 			close(dataChan)
 		}()
 
-		// Wait before repeating the process
-		time.Sleep(time.Second * 120)
+		// Wait 30 seconds before repeating the process
+		time.Sleep(time.Second * 30) // Sleep for 30 seconds
 	}
-
-	select {}
 }
