@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres
+    image: "postgres:14" # Update version if necessary
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: <UPDATE>
+      POSTGRES_PASSWORD: <UPDATE>
+      POSTGRES_DB: <UPDATE>
+    networks:
+      - msds_432_final_project
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - msds_432_final_project
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  fetcher-service:
+    container_name: fetcher-service
+    image: fetcher-service
+    build:
+      context: ./fetcher-service  # Relative path to fetcher-service
+    depends_on:
+      - rabbitmq
+    restart: no
+    networks:
+      - msds_432_final_project
+  
+  cleaner-service:
+    container_name: cleaner-service
+    image: cleaner-service
+    build:
+      context: ./cleaner-service  # Relative path to cleaner-service
+    depends_on:
+      - rabbitmq
+      - fetcher-service
+    restart: no
+    networks:
+      - msds_432_final_project
+    
+  transformer-service:
+    container_name: transformer-service
+    image: transformer-service
+    environment:
+      - GEOCODER_API_KEY=<UPDATE>
+    build:
+      context: ./transformer-service  # Relative path to transformer-service
+    depends_on:
+      - rabbitmq
+      - cleaner-service
+    restart: no
+    networks:
+      - msds_432_final_project
+  
+  storage-service:
+    container_name: storage-service
+    image: storage-service
+    build:
+      context: ./storage-service  # Relative path to storage-service
+    depends_on:
+      - postgres
+      - rabbitmq
+      - transformer-service
+    restart: no
+    networks:
+      - msds_432_final_project
+    environment:
+      POSTGRES_USER: <UPDATE>
+      POSTGRES_PASSWORD: <UPDATE>
+      POSTGRES_DB: <UPDATE>
+
+networks:
+  msds_432_final_project:
+    name: msds_432_final_project
