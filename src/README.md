@@ -43,8 +43,7 @@ For industrial and neighborhood infrastructure investment, the city of Chicago i
         Building Permits: Join with Census Data by community area
 
 ## Requirement 6:
-According to a report published by Crain’s Chicago Business, The “little guys”, small businesses, have trouble competing with the big players like Amazon and Walmart for warehouse
-spaces. To help small business, assume a new imaginary program has been piloted with the name Illinois Small Business Emergency Loan Fund Delta to offer small businesses low interest loans of up to $250,000 for those applicants with PERMIT_TYPE of PERMIT - NEW CONSTRUCTION in the zip code that has the lowest number of PERMIT - NEW CONSTRUCTION applications and PER CAPITA INCOME is less than 30,000 for the planned construction site. Both, building permits and unemployment, datasets will be used in this report.
+According to a report published by Crain’s Chicago Business, The “little guys”, small businesses, have trouble competing with the big players like Amazon and Walmart for warehouse spaces. To help small business, assume a new imaginary program has been piloted with the name Illinois Small Business Emergency Loan Fund Delta to offer small businesses low interest loans of up to $250,000 for those applicants with PERMIT_TYPE of PERMIT - NEW CONSTRUCTION in the zip code that has the lowest number of PERMIT - NEW CONSTRUCTION applications and PER CAPITA INCOME is less than 30,000 for the planned construction site. Both, building permits and unemployment, datasets will be used in this report.
 
     Tables:
         Census Data: Filter where Income is less than $30,000
