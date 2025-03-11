@@ -83,6 +83,7 @@ func main() {
 		close(dataChan)
 	}()
 
+	offset := 0 // Start from the first page
 	// Repeat the process 5 times
 	for i := 0; i < 20; i++ {
 		// Create a channel to receive data from the goroutines
@@ -91,7 +92,6 @@ func main() {
 
 		// Start a new goroutine for each URL
 		for tableName, baseURL := range baseURLs {
-			offset := 0 // Start from the first page
 			wg.Add(1)
 			go func(tableName, baseURL string) {
 				defer wg.Done()
