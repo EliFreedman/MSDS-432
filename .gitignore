@@ -170,7 +170,8 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# Raw data
-data/
+# Docker Compose (contains API key)
 docker-compose.yml
-notebooks/
+
+# Contains testing notebooks
+analysis/samples/
